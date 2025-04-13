@@ -15,14 +15,30 @@ ADYEN_UI_COMPONENT_SOURCE_TEST = os.getenv('ADYEN_UI_COMPONENT_SOURCE_TEST')
 ADYEN_UI_COMPONENT_SOURCE_LIVE = os.getenv('ADYEN_UI_COMPONENT_SOURCE_LIVE')
 PAYMENT_GATEWAY = os.getenv('PAYMENT_GATEWAY', 'Adyen')
 
+# settings.py
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+ADYEN_SETTINGS = {
+    'API_KEY': 'your_api_key_here',
+    'MERCHANT_ACCOUNT': 'your_merchant_account_here',
+    'CLIENT_KEY': 'your_client_key_here',
+    'PUBLIC_KEY': 'your_public_key_here',
+    'ENVIRONMENT': 'Test',  # Can be 'Test' or 'Live'
+    'UI_COMPONENT_SOURCE_TEST': 'your_test_ui_component_source',
+    'UI_COMPONENT_SOURCE_LIVE': 'your_live_ui_component_source',
+}
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# Function to get UI component source based on the environment
+def get_adyen_ui_component_source():
+    environment = ADYEN_SETTINGS['ENVIRONMENT']
+    if environment == 'Live':
+        return ADYEN_SETTINGS['UI_COMPONENT_SOURCE_LIVE']
+    return ADYEN_SETTINGS['UI_COMPONENT_SOURCE_TEST']
+
+
+
+
 SECRET_KEY = 'django-insecure-108!l786lm4ugti3b%qfb6=ou-+y58&v-7d0z7fa$1em%@&v+p'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -72,7 +88,6 @@ WSGI_APPLICATION = 'payment_gateway.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -83,7 +98,6 @@ DATABASES = {
 
 
 # Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -102,7 +116,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -114,11 +127,9 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

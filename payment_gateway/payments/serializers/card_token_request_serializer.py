@@ -3,7 +3,7 @@ from payments.models.card_token_request import CardTokenRequest, CardHolderDetai
 from payments.serializers import CardHolderDetailSerializer
 
 class CardTokenRequestSerializer(serializers.ModelSerializer):
-    card_holder_detail = CardHolderDetailSerializer(required=False, allow_null=True)
+    card_holder_detail = CardHolderDetailSerializer()
 
     class Meta:
         model = CardTokenRequest

@@ -4,7 +4,7 @@ import uuid
 import asyncio
 from asgiref.sync import sync_to_async
 from decimal import Decimal
-from payments.models import Payment, TokenizedCard
+from payments.models import Payment, TokenizedCard, CardTokenRequest
 
 class AdyenService:
     def __init__(self):
@@ -16,7 +16,7 @@ class AdyenService:
     def get_ui_component_source(self):
         return settings.get_adyen_ui_component_source()  # Accesses the helper function defined in settings.py
 
-    async def retrieve_token(self, card_token_request):
+    async def retrieve_token(self, card_token_request: CardTokenRequest) -> TokenizedCard:
         """
         Tokenizes a card, equivalent to .NET RetrieveToken(CardTokenRequest).
         Creates a TokenisedCard with a Payment, using Adyen's /payments API.
